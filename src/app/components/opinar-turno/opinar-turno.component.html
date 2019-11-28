@@ -1,0 +1,75 @@
+<div class="container mat-elevation-z8">
+  <h3>Opinion sobre la clinica</h3>
+  <fieldset class="rating">
+    <ng-container *ngFor="let num1 of [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]">
+      <!-- full star -->
+      <input
+        (click)="clinica(num1)"
+        [id]="'clinica' + num1"
+        [value]="num1 - 0.5"
+        name="ratingclinica"
+        type="radio"
+      />
+
+      <label class="full" [for]="'clinica' + num1"></label>
+
+      <!-- half star -->
+      <input
+        (click)="clinica(num1 - 0.5)"
+        [value]="num1 - 0.5"
+        [id]="'halfclinica' + num1"
+        name="ratingclinica"
+        type="radio"
+      />
+
+      <label class="half" [for]="'halfclinica' + num1"></label>
+    </ng-container>
+  </fieldset>
+
+  <h3>Opinion sobre el especialista</h3>
+  <fieldset class="rating">
+    <ng-container *ngFor="let num2 of [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]">
+      <!-- full star -->
+      <input
+        (click)="especialista(num2)"
+        [id]="'especialista' + num2"
+        [value]="num2 - 0.5"
+        name="ratingespecialista"
+        type="radio"
+      />
+
+      <label class="full" [for]="'especialista' + num2"></label>
+
+      <!-- half star -->
+      <input
+        (click)="especialista(num2 - 0.5)"
+        [value]="num2 - 0.5"
+        [id]="'halfespecialista' + num2"
+        name="ratingespecialista"
+        type="radio"
+      />
+
+      <label class="half" [for]="'halfespecialista' + num2"></label>
+    </ng-container>
+  </fieldset>
+
+  <h3>Opinion</h3>
+  <textarea
+    [(ngModel)]="opinion"
+    name="opinion"
+    id="opinion"
+    cols="30"
+    rows="10"
+    maxlength="66"
+  ></textarea>
+
+  <button
+    mat-flat-button
+    color="warn"
+    (click)="opinar()"
+    style="margin-top: 10px;"
+    [disabled]="validClinica == false || validEspecialista == false"
+  >
+    Opinar
+  </button>
+</div>

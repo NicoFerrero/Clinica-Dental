@@ -1,0 +1,123 @@
+<form
+  [formGroup]="registerForm"
+  (ngSubmit)="onSubmit()"
+  class="mat-elevation-z8"
+>
+  <mat-form-field class="example-full-width">
+    <input
+      #email
+      matInput
+      name="email"
+      type="email"
+      id="email"
+      placeholder="Email"
+      formControlName="email"
+    />
+    <mat-error>Campo no valido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      #password
+      matInput
+      [type]="hide ? 'password' : 'text'"
+      placeholder="Password"
+      name="password"
+      formControlName="password"
+      maxlength="12"
+      minlength="6"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="hide = !hide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide"
+      (click)="preventDefault($event)"
+    >
+      <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+    </button>
+    <mat-hint align="end">{{ password.value?.length || 0 }}/12</mat-hint>
+    <mat-error>Contraseña no valida</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input
+      matInput
+      name="nombre"
+      type="text"
+      id="nombre"
+      placeholder="Nombre"
+      formControlName="nombre"
+    />
+    <mat-error>Campo no valido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input
+      matInput
+      name="apellido"
+      type="text"
+      id="apellido"
+      placeholder="Apellido"
+      formControlName="apellido"
+    />
+    <mat-error>Campo no valido</mat-error>
+  </mat-form-field>
+
+  <div class="file">
+    <input
+      name="foto"
+      type="file"
+      id="foto"
+      placeholder="Foto"
+      formControlName="foto"
+      (change)="subirArchivo($event.target.files)"
+    />
+  </div>
+
+  <mat-form-field *ngIf="tipoUsuario?.tipo == 'administrador'">
+    <mat-label>Tipo de Usuario</mat-label>
+    <mat-select
+      name="tipo"
+      id="tipo"
+      formControlName="tipo"
+      (selectionChange)="change($event)"
+    >
+      <mat-option value="administrador">Administrador</mat-option>
+      <mat-option value="especialista">Especialista</mat-option>
+      <mat-option value="recepcionista">Recepcionista</mat-option>
+      <mat-option value="paciente">Paciente</mat-option>
+    </mat-select>
+    <mat-error>Campo no valido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="validEspecialista">
+    <mat-label>Especialidad</mat-label>
+    <mat-select
+      name="especialidad"
+      id="especialidad"
+      formControlName="especialidad"
+    >
+      <mat-option value="implantologia">Implantologia</mat-option>
+      <mat-option value="ortodoncia">Ortodoncia</mat-option>
+      <mat-option value="endodoncia">Endodoncia</mat-option>
+    </mat-select>
+    <mat-error>Campo no valido</mat-error>
+  </mat-form-field>
+
+  <app-captcha
+    *ngIf="tipoUsuario?.tipo != 'administrador'"
+    id="captcha"
+    (verificar)="verificar($event)"
+  ></app-captcha>
+
+  <button
+    type="submit"
+    [disabled]="registerForm?.invalid || !validFoto || !validCaptcha"
+    mat-flat-button
+    color="primary"
+  >
+    Register
+  </button>
+</form>

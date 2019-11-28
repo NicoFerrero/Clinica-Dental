@@ -1,0 +1,11 @@
+<div *ngIf="opinion">
+  <h2 mat-dialog-title>Opinion del turno</h2>
+  <mat-dialog-content>
+    <p>Puntaje Clinica: {{ opinion[0]?.clinica }}</p>
+    <p>Puntaje Especialista: {{ opinion[0]?.especialista }}</p>
+    <p>Opinion: {{ opinion[0]?.opinion }}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button (click)="cerrar()">Ok</button>
+  </mat-dialog-actions>
+</div>

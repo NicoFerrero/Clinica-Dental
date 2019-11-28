@@ -1,0 +1,39 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mat-elevation-z8">
+  <mat-form-field>
+    <input
+      matInput
+      type="email"
+      placeholder="Email"
+      name="email"
+      formControlName="email"
+    />
+    <mat-error>Email no valido</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      #password
+      matInput
+      [type]="hide ? 'password' : 'text'"
+      placeholder="Password"
+      name="password"
+      formControlName="password"
+      maxlength="12"
+      minlength="6"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="hide = !hide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide"
+      (click)="preventDefault($event)"
+    >
+      <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+    </button>
+    <mat-hint align="end">{{ password.value?.length || 0 }}/12</mat-hint>
+    <mat-error>Contraseña no valida</mat-error>
+  </mat-form-field>
+  <button [disabled]="loginForm?.invalid" mat-flat-button color="primary">
+    Login
+  </button>
+</form>

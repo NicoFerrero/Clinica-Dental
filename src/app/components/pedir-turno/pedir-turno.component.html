@@ -1,0 +1,83 @@
+<form [formGroup]="turnoForm" (ngSubmit)="onSubmit()" class="mat-elevation-z8">
+  <mat-form-field *ngIf="user?.tipo == 'recepcionista'">
+    <mat-label>Paciente</mat-label>
+    <mat-select name="paciente" id="paciente" formControlName="paciente">
+      <mat-option *ngFor="let paciente of pacientes" value="{{ paciente?.uid }}"
+        >{{ paciente?.nombre | titlecase }}
+        {{ paciente?.apellido | titlecase }}</mat-option
+      >
+    </mat-select>
+    <mat-error>Campo no valido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Especialidad</mat-label>
+    <mat-select
+      name="especialidad"
+      id="especialidad"
+      formControlName="especialidad"
+      (selectionChange)="change($event)"
+    >
+      <mat-option value="implantologia">Implantologia</mat-option>
+      <mat-option value="ortodoncia">Ortodoncia</mat-option>
+      <mat-option value="endodoncia">Endodoncia</mat-option>
+    </mat-select>
+    <mat-error>Campo no valido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Especialista</mat-label>
+    <mat-select
+      name="especialista"
+      id="especialista"
+      formControlName="especialista"
+    >
+      <mat-option
+        *ngFor="let especialista of especialistas"
+        value="{{ especialista?.uid }}"
+        >{{ especialista?.nombre | titlecase }}
+        {{ especialista?.apellido | titlecase }}</mat-option
+      >
+    </mat-select>
+    <mat-error>Campo no valido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      [min]="minDate"
+      [matDatepicker]="picker"
+      [matDatepickerFilter]="myFilter"
+      placeholder="Choose a date"
+      name="fecha"
+      id="fecha"
+      formControlName="fecha"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker touchUi></mat-datepicker>
+    <mat-error>Campo no valido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Elegi la hora"
+      name="hora"
+      type="time"
+      id="hora"
+      min="08:00"
+      [max]="maxHourDOM"
+      formControlName="hora"
+    />
+    <mat-error>Campo no valido</mat-error>
+  </mat-form-field>
+
+  <button
+    type="submit"
+    [disabled]="turnoForm?.invalid"
+    mat-flat-button
+    color="primary"
+  >
+    Pedir Turno
+  </button>
+</form>
